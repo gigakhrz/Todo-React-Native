@@ -1,4 +1,5 @@
 import {
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -15,6 +16,10 @@ const Create = (): JSX.Element => {
         <TextInput style={style.input} />
         <TouchableOpacity style={style.button}>
           <Text style={style.buttonText}>Add Task</Text>
+          <Image
+            style={style.image}
+            source={require('../images/delete-filled-svgrepo-com.svg')}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -64,5 +69,10 @@ const style = StyleSheet.create({
   buttonText: {
     fontSize: 20,
     color: 'white',
+  },
+
+  image: {
+    width: 20,
+    height: 20,
   },
 });
