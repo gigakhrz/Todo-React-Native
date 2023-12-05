@@ -1,11 +1,13 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Create from './components/Create';
+import Todos from './components/Todos';
 
 function App(): JSX.Element {
   return (
     <View style={style.mainContainer}>
       <Create />
+      <Todos />
     </View>
   );
 }
@@ -18,5 +20,6 @@ const style = StyleSheet.create({
     paddingTop: 70,
     paddingHorizontal: 40,
     backgroundColor: '#E6E6E6',
+    gap: 10,
   },
 });
