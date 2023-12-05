@@ -21,7 +21,13 @@ const Todos = (): JSX.Element => {
           <TouchableOpacity style={style.editWrapper}>
             <Text style={style.edit}> edit</Text>
           </TouchableOpacity>
-          <Image style={style.image} source={require('../images/delete.png')} />
+
+          <TouchableOpacity>
+            <Image
+              style={style.image}
+              source={require('../images/delete.png')}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
