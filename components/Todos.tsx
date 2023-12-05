@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const Todos = (): JSX.Element => {
@@ -18,7 +18,10 @@ const Todos = (): JSX.Element => {
         </View>
 
         <View style={style.changeCont}>
-          <Text style={style.edit}>edit</Text>
+          <TouchableOpacity style={style.editWrapper}>
+            <Text style={style.edit}> edit</Text>
+          </TouchableOpacity>
+          <Image style={style.image} source={require('../images/delete.png')} />
         </View>
       </View>
     </View>
@@ -44,6 +47,7 @@ const style = StyleSheet.create({
   firstHalf: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
   },
 
   todoTitle: {
@@ -54,10 +58,24 @@ const style = StyleSheet.create({
   changeCont: {
     display: 'flex',
     gap: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  editWrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   edit: {
+    width: '100%',
     fontSize: 20,
     color: 'green',
+  },
+
+  image: {
+    width: 20,
+    height: 20,
   },
 });
