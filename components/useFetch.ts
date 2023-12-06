@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://clean-capris-cod.cyclic.app/todos'; // Replace with your actual API base URL
+const API_BASE_URL = 'https://clean-capris-cod.cyclic.app'; // Replace with your actual API base URL
 
 interface TodoInterface {
   _id: string;
@@ -17,7 +17,9 @@ const useTodos = () => {
   const fetchTodos = async (): Promise<void> => {
     console.log('aqamde movida');
     try {
-      const response = await axios.get<TodoInterface[]>(`${API_BASE_URL}`);
+      const response = await axios.get<TodoInterface[]>(
+        `${API_BASE_URL}/todos`,
+      );
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -29,9 +31,20 @@ const useTodos = () => {
 
   useEffect(() => {
     fetchTodos();
-  }, []); // This empty dependency array makes sure it runs only once on component mount
+  }); // This empty dependency array makes sure it runs only once on component mount
 
   return {data, loading, error, refetchTodos: fetchTodos};
 };
 
 export default useTodos;
+
+//to mark todo as comleted
+const {refetchTodos} = useTodos();
+export const updateTodo = async (_id: string, completed: boolean) => {
+  try {
+    await axios.put(`${API_BASE_URL}/todos/${_id}`, {completed});
+    refetchTodos();
+  } catch (error) {
+    console.log(error);
+  }
+};
