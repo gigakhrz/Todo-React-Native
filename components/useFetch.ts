@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = '"https://clean-capris-cod.cyclic.app/"todos'; // Replace with your actual API base URL
+const API_BASE_URL = 'https://clean-capris-cod.cyclic.app/todos'; // Replace with your actual API base URL
 
 interface TodoInterface {
   _id: string;

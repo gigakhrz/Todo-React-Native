@@ -5,35 +5,39 @@ import useTodos from './useFetch';
 const Todos = (): JSX.Element => {
   const {data} = useTodos();
 
-  console.log(data);
   return (
     <View style={style.todosWrapper}>
       {/*  */}
-      <View style={style.taskContainer}>
-        <View style={style.firstHalf}>
-          <BouncyCheckbox
-            onPress={(isChecked: boolean) => {
-              isChecked = true;
-            }}
-            fillColor="green"
-            size={27}
-          />
-          <Text style={style.todoTitle}>workout</Text>
-        </View>
+      {data.map(item => {
+        return (
+          <View key={item._id} style={style.taskContainer}>
+            <View style={style.firstHalf}>
+              <BouncyCheckbox
+                isChecked={item.completed}
+                onPress={(isChecked: boolean) => {
+                  isChecked = !item.completed;
+                }}
+                fillColor="green"
+                size={27}
+              />
+              <Text style={style.todoTitle}>{item.title}</Text>
+            </View>
 
-        <View style={style.changeCont}>
-          <TouchableOpacity style={style.editWrapper}>
-            <Text style={style.edit}> edit</Text>
-          </TouchableOpacity>
+            <View style={style.changeCont}>
+              <TouchableOpacity style={style.editWrapper}>
+                <Text style={style.edit}> edit</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity>
-            <Image
-              style={style.image}
-              source={require('../images/delete.png')}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
+              <TouchableOpacity>
+                <Image
+                  style={style.image}
+                  source={require('../images/delete.png')}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      })}
     </View>
   );
 };
