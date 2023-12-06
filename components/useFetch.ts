@@ -13,10 +13,11 @@ const useTodos = () => {
   const [data, setData] = useState<TodoInterface[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [manualFetch, setManualFetch] = useState(false);
 
   const fetchTodos = async (): Promise<void> => {
-    console.log('aqamde movida');
     try {
+      console.log('mec tavidan gaveshvi');
       const response = await axios.get<TodoInterface[]>(
         `${API_BASE_URL}/todos`,
       );
@@ -29,21 +30,35 @@ const useTodos = () => {
     }
   };
 
+  // Initial fetch on component mount
   useEffect(() => {
     fetchTodos();
-  }); // This empty dependency array makes sure it runs only once on component mount
+  }, []);
 
-  return {data, loading, error, refetchTodos: fetchTodos};
+  // Manual fetch when manualFetch is true
+  useEffect(() => {
+    if (manualFetch) {
+      fetchTodos();
+      setManualFetch(false); // Reset the flag after fetching
+    }
+  }, [manualFetch]);
+
+  return {data, loading, error, refetchTodos: () => setManualFetch(true)};
 };
 
 export default useTodos;
 
 //to mark todo as comleted
-const {refetchTodos} = useTodos();
-export const updateTodo = async (_id: string, completed: boolean) => {
+
+export const updateTodo = async (
+  _id: string,
+  completed: boolean,
+  fetchTodos: () => void,
+) => {
   try {
     await axios.put(`${API_BASE_URL}/todos/${_id}`, {completed});
-    refetchTodos();
+    fetchTodos();
+    console.log('updated succesfuly');
   } catch (error) {
     console.log(error);
   }

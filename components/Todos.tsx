@@ -1,9 +1,22 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import useTodos from './useFetch';
+import useTodos, {updateTodo} from './useFetch';
+import axios from 'axios';
 
 const Todos = (): JSX.Element => {
-  const {data} = useTodos();
+  const {data, refetchTodos} = useTodos();
+
+  //to mark todo as comleted
+  const update = async (_id: string, completed: boolean) => {
+    try {
+      await axios.put(`https://clean-capris-cod.cyclic.app/todos/${_id}`, {
+        completed,
+      });
+      refetchTodos();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={style.todosWrapper}>
@@ -14,9 +27,7 @@ const Todos = (): JSX.Element => {
             <View style={style.firstHalf}>
               <BouncyCheckbox
                 isChecked={item.completed}
-                onPress={(isChecked: boolean) => {
-                  isChecked = !item.completed;
-                }}
+                onPress={() => update(item._id, item.completed)}
                 fillColor="green"
                 size={27}
               />
