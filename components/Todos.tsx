@@ -1,7 +1,11 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import useTodos from './useFetch';
 
 const Todos = (): JSX.Element => {
+  const {data} = useTodos();
+
+  console.log(data);
   return (
     <View style={style.todosWrapper}>
       {/*  */}
