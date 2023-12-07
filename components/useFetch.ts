@@ -21,6 +21,7 @@ const useTodos = () => {
       const response = await axios.get<TodoInterface[]>(
         `${API_BASE_URL}/todos`,
       );
+      console.log('aqaaa');
       setData(response.data);
     } catch (error) {
       console.log(error);
@@ -36,6 +37,7 @@ const useTodos = () => {
   }, []);
 
   // Manual fetch when manualFetch is true
+
   useEffect(() => {
     if (manualFetch) {
       fetchTodos();

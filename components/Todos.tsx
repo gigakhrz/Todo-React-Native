@@ -10,7 +10,7 @@ const Todos = (): JSX.Element => {
   const update = async (_id: string, completed: boolean) => {
     try {
       await axios.put(`https://clean-capris-cod.cyclic.app/todos/${_id}`, {
-        completed,
+        completed: completed,
       });
       refetchTodos();
     } catch (error) {
