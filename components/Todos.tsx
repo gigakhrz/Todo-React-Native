@@ -18,6 +18,8 @@ const Todos = (): JSX.Element => {
     }
   };
 
+  //   ar mushaaobss -_-
+
   return (
     <View style={style.todosWrapper}>
       {/*  */}
