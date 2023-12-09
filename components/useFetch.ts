@@ -12,6 +12,7 @@ interface TodoInterface {
 const useTodos = () => {
   const [data, setData] = useState<TodoInterface[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [manualFetch, setManualFetch] = useState(false);
 
   const fetchTodos = async (): Promise<void> => {
     try {
@@ -28,9 +29,18 @@ const useTodos = () => {
   // Initial fetch on component mount
   useEffect(() => {
     fetchTodos();
-  });
+  }, []);
 
-  return {data, error, refetchTodos: fetchTodos};
+  // Manual fetch when manualFetch is true
+
+  useEffect(() => {
+    if (manualFetch) {
+      fetchTodos();
+      setManualFetch(false); // Reset the flag after fetching
+    }
+  }, [manualFetch]);
+
+  return {data, error, refetchTodos: () => setManualFetch(true)};
 };
 
 export default useTodos;
