@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-import useTodos, {updateTodo} from './useFetch';
+import useTodos, {updateTodo, deleteTodo} from './useFetch';
 
 const Todos = (): JSX.Element => {
   const {data, refetchTodos} = useTodos();
@@ -28,7 +28,8 @@ const Todos = (): JSX.Element => {
                 <Text style={style.edit}> edit</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => deleteTodo(item._id, refetchTodos)}>
                 <Image
                   style={style.image}
                   source={require('../images/delete.png')}
