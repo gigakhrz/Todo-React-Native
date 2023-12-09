@@ -5,16 +5,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import useTodos, {addTask} from './useFetch';
+import {useState} from 'react';
 
 const Create = (): JSX.Element => {
+  const [input, setInput] = useState<string>('');
+  const {refetchTodos} = useTodos();
+
   return (
     <View style={style.createCont}>
       <Text style={style.title}>ToDo App</Text>
 
       <View style={style.wrapper}>
-        <TextInput style={style.input} />
+        <TextInput style={style.input} onChangeText={text => setInput(text)} />
         <TouchableOpacity style={style.button}>
-          <Text style={style.buttonText}>Add Task</Text>
+          <Text
+            style={style.buttonText}
+            onPress={() => {
+              addTask(input, refetchTodos);
+            }}>
+            Add Task
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

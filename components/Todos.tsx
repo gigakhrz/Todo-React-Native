@@ -6,20 +6,6 @@ import axios from 'axios';
 const Todos = (): JSX.Element => {
   const {data, refetchTodos} = useTodos();
 
-  //to mark todo as comleted
-  const update = async (_id: string, completed: boolean) => {
-    try {
-      await axios.put(`https://clean-capris-cod.cyclic.app/todos/${_id}`, {
-        completed: completed,
-      });
-      refetchTodos();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  //   ar mushaaobss -_-
-
   return (
     <View style={style.todosWrapper}>
       {/*  */}
@@ -29,7 +15,9 @@ const Todos = (): JSX.Element => {
             <View style={style.firstHalf}>
               <BouncyCheckbox
                 isChecked={item.completed}
-                onPress={() => update(item._id, item.completed)}
+                onPress={() =>
+                  updateTodo(item._id, !item.completed, refetchTodos)
+                }
                 fillColor="green"
                 size={27}
               />

@@ -11,44 +11,45 @@ interface TodoInterface {
 
 const useTodos = () => {
   const [data, setData] = useState<TodoInterface[]>([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [manualFetch, setManualFetch] = useState(false);
 
   const fetchTodos = async (): Promise<void> => {
     try {
-      console.log('mec tavidan gaveshvi');
       const response = await axios.get<TodoInterface[]>(
         `${API_BASE_URL}/todos`,
       );
-      console.log('aqaaa');
       setData(response.data);
     } catch (error) {
       console.log(error);
       setError('Error fetching todos');
-    } finally {
-      setLoading(false);
     }
   };
 
   // Initial fetch on component mount
   useEffect(() => {
     fetchTodos();
-  }, []);
+  });
 
-  // Manual fetch when manualFetch is true
-
-  useEffect(() => {
-    if (manualFetch) {
-      fetchTodos();
-      setManualFetch(false); // Reset the flag after fetching
-    }
-  }, [manualFetch]);
-
-  return {data, loading, error, refetchTodos: () => setManualFetch(true)};
+  return {data, error, refetchTodos: fetchTodos};
 };
 
 export default useTodos;
+
+// post todo
+export const addTask = async (
+  text: string,
+  fetchTodos: () => void,
+): Promise<void> => {
+  try {
+    await axios.post<TodoInterface>(`${API_BASE_URL}/todos`, {
+      title: text,
+      completed: false,
+    });
+    fetchTodos();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //to mark todo as comleted
 
