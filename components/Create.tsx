@@ -5,12 +5,33 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import useTodos, {addTask} from './useFetch';
+import useTodos from './useFetch';
 import {useState} from 'react';
+import axios from 'axios';
+
+interface TodoInterface {
+  _id: string;
+  title: string;
+  completed: boolean;
+}
 
 const Create = (): JSX.Element => {
   const [input, setInput] = useState<string>('');
   const {refetchTodos} = useTodos();
+  const addTask = async (): Promise<void> => {
+    try {
+      await axios.post<TodoInterface>(
+        `https://clean-capris-cod.cyclic.app/todos`,
+        {
+          title: input,
+          completed: false,
+        },
+      );
+      refetchTodos();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <View style={style.createCont}>
@@ -18,14 +39,8 @@ const Create = (): JSX.Element => {
 
       <View style={style.wrapper}>
         <TextInput style={style.input} onChangeText={text => setInput(text)} />
-        <TouchableOpacity style={style.button}>
-          <Text
-            style={style.buttonText}
-            onPress={() => {
-              addTask(input, refetchTodos);
-            }}>
-            Add Task
-          </Text>
+        <TouchableOpacity style={style.button} onPress={addTask}>
+          <Text style={style.buttonText}>Add Task</Text>
         </TouchableOpacity>
       </View>
     </View>
