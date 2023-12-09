@@ -1,7 +1,6 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import useTodos, {updateTodo} from './useFetch';
-import axios from 'axios';
 
 const Todos = (): JSX.Element => {
   const {data, refetchTodos} = useTodos();

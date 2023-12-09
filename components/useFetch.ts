@@ -66,3 +66,15 @@ export const updateTodo = async (
     console.log(error);
   }
 };
+
+// delete task function
+
+export const deleteTodo = async (_id: string, fetchTodos: () => void) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/todos/${_id}`);
+    fetchTodos();
+    console.log('deleted successfully');
+  } catch (error) {
+    console.log(error);
+  }
+};
