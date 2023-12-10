@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
 
-const API_BASE_URL = 'https://clean-capris-cod.cyclic.app'; // Replace with your actual API base URL
+const API_BASE_URL = 'http://192.168.100.10:3002'; // Replace with your actual API base URL
 
 interface TodoInterface {
   _id: string;
@@ -41,7 +41,7 @@ export const addTask = async (
   fetchTodos: () => void,
 ): Promise<void> => {
   try {
-    await axios.post<TodoInterface>(`${API_BASE_URL}/todos`, {
+    await axios.post<TodoInterface>(`${API_BASE_URL}/post`, {
       title: text,
       completed: false,
     });
