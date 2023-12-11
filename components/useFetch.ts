@@ -28,7 +28,7 @@ const useTodos = () => {
   // Initial fetch on component mount
   useEffect(() => {
     fetchTodos();
-  });
+  }, []);
 
   return {data, error, refetchTodos: fetchTodos};
 };

@@ -5,6 +5,8 @@ import useTodos, {updateTodo, deleteTodo} from './useFetch';
 const Todos = (): JSX.Element => {
   const {data, refetchTodos} = useTodos();
 
+  console.log(data && data.filter(item => item.title === 'rame'));
+
   return (
     <View style={style.todosWrapper}>
       {/*  */}
