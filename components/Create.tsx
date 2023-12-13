@@ -6,7 +6,6 @@ import {
   View,
 } from 'react-native';
 import useTodos, {addTask, editTitle} from './useFetch';
-import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../feature/store';
 import {setEditing} from '../feature/editingText';
