@@ -79,3 +79,21 @@ export const deleteTodo = async (_id: string, fetchTodos: () => void) => {
     console.log(error);
   }
 };
+
+// edit function
+
+export const editTitle = async (
+  id: string,
+  title: string,
+  fetchTodos: () => void,
+) => {
+  try {
+    await axios.put(`${API_BASE_URL}/todos/edit/${id}`, {
+      title: title,
+    });
+    fetchTodos();
+    console.log('updated successfully');
+  } catch (error) {
+    console.log(error);
+  }
+};
