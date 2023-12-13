@@ -7,23 +7,27 @@ import {
 } from 'react-native';
 import useTodos, {addTask, editTitle} from './useFetch';
 import {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../feature/store';
 import {setEditing} from '../feature/editingText';
+import {setInput} from '../feature/todoName';
 
 const Create = (): JSX.Element => {
+  const dispatch = useDispatch();
+
   const editing = useSelector((store: RootState) => store.editingText.editing);
   const editTodo = useSelector(
     (store: RootState) => store.replacebleInput.edit,
   );
   const inputValue = useSelector((store: RootState) => store.todoName.input);
-  const [input, setInput] = useState<string>('');
   const {refetchTodos} = useTodos();
 
   const addOrUpdate = (): void => {
     if (editing) {
+      console.log('vaediteb');
       editTitle(editTodo[0]._id, inputValue, refetchTodos);
-      setEditing(false);
+      dispatch(setEditing(false));
+      dispatch(setInput(''));
     } else {
       addTask(inputValue, refetchTodos);
     }
@@ -34,7 +38,11 @@ const Create = (): JSX.Element => {
       <Text style={style.title}>ToDo App</Text>
 
       <View style={style.wrapper}>
-        <TextInput style={style.input} onChangeText={text => setInput(text)} />
+        <TextInput
+          style={style.input}
+          value={inputValue}
+          onChangeText={text => dispatch(setInput(text))}
+        />
         <TouchableOpacity
           onPress={() => {
             addOrUpdate();
