@@ -18,7 +18,8 @@ const useTodos = () => {
       const response = await axios.get<TodoInterface[]>(
         `${API_BASE_URL}/todos`,
       );
-      setData(response.data);
+      const data2 = response.data;
+      setData(data2);
     } catch (error) {
       console.log(error);
       setError('Error fetching todos');
@@ -28,7 +29,7 @@ const useTodos = () => {
   // Initial fetch on component mount
   useEffect(() => {
     fetchTodos();
-  });
+  }, []);
 
   return {data, error, refetchTodos: fetchTodos};
 };

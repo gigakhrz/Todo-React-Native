@@ -18,14 +18,13 @@ const Create = (): JSX.Element => {
 
       <View style={style.wrapper}>
         <TextInput style={style.input} onChangeText={text => setInput(text)} />
-        <TouchableOpacity style={style.button}>
-          <Text
-            style={style.buttonText}
-            onPress={() => {
-              addTask(input, refetchTodos);
-            }}>
-            Add Task
-          </Text>
+        <TouchableOpacity
+          onPress={() => {
+            console.log('damechira');
+            addTask(input, refetchTodos);
+          }}
+          style={style.button}>
+          <Text style={style.buttonText}>Add Task</Text>
         </TouchableOpacity>
       </View>
     </View>
