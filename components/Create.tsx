@@ -20,7 +20,6 @@ const Create = (): JSX.Element => {
         <TextInput style={style.input} onChangeText={text => setInput(text)} />
         <TouchableOpacity
           onPress={() => {
-            console.log('damechira');
             addTask(input, refetchTodos);
           }}
           style={style.button}>
