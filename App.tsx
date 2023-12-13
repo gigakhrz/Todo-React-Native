@@ -2,13 +2,17 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Create from './components/Create';
 import Todos from './components/Todos';
+import {Provider} from 'react-redux';
+import store from './feature/store';
 
 function App(): JSX.Element {
   return (
-    <View style={style.mainContainer}>
-      <Create />
-      <Todos />
-    </View>
+    <Provider store={store}>
+      <View style={style.mainContainer}>
+        <Create />
+        <Todos />
+      </View>
+    </Provider>
   );
 }
 

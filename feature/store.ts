@@ -16,3 +16,5 @@ export type RootState = {
   replacebleInput: EditProps;
   editingText: EditingProps;
 };
+
+export default store;
