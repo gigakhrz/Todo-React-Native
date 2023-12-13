@@ -1,10 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-export interface editingProps {
+export interface EditingProps {
   editing: boolean;
 }
 
-const initialState: editingProps = {
+const initialState: EditingProps = {
   editing: false,
 };
 

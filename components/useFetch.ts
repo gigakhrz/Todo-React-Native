@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://192.168.100.10:3002'; // Replace with your actual API base URL
 
-interface TodoInterface {
+export interface TodoInterface {
   _id: string;
   title: string;
   completed: boolean;
@@ -31,7 +31,7 @@ const useTodos = () => {
     fetchTodos();
   }, []);
 
-  return {data, error, refetchTodos: fetchTodos};
+  return {data, error, refetchTodos: fetchTodos, setData};
 };
 
 export default useTodos;

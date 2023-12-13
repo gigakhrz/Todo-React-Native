@@ -7,7 +7,7 @@ import {setInput} from '../feature/todoName';
 import {setEditing} from '../feature/editingText';
 
 const Todos = (): JSX.Element => {
-  const {data, refetchTodos} = useTodos();
+  const {data, setData, refetchTodos} = useTodos();
 
   const dispatch = useDispatch();
 
@@ -18,6 +18,7 @@ const Todos = (): JSX.Element => {
     dispatch(setEditing(true));
 
     const currentData = data.filter(item => item._id !== id);
+    setData(currentData);
   };
 
   return (
@@ -39,7 +40,11 @@ const Todos = (): JSX.Element => {
             </View>
 
             <View style={style.changeCont}>
-              <TouchableOpacity onPress={() => {}} style={style.editWrapper}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleEdit(item._id);
+                }}
+                style={style.editWrapper}>
                 <Text style={style.edit}> edit</Text>
               </TouchableOpacity>
 
