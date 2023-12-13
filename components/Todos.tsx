@@ -2,14 +2,18 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import useTodos, {updateTodo, deleteTodo} from './useFetch';
 import {setEdit} from '../feature/replacebleInput';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {setInput} from '../feature/todoName';
 import {setEditing} from '../feature/editingText';
+import {setData} from '../feature/todoData';
+import {RootState} from '../feature/store';
 
 const Todos = (): JSX.Element => {
-  const {data, setData, refetchTodos} = useTodos();
+  const {refetchTodos} = useTodos();
 
   const dispatch = useDispatch();
+
+  const data = useSelector((store: RootState) => store.todoData.todo);
 
   const handleEdit = (id: string): void => {
     const editText = data.filter(item => item._id === id);
@@ -18,7 +22,7 @@ const Todos = (): JSX.Element => {
     dispatch(setEditing(true));
 
     const currentData = data.filter(item => item._id !== id);
-    setData(currentData);
+    dispatch(setData(currentData));
   };
 
   return (

@@ -23,7 +23,6 @@ const Create = (): JSX.Element => {
 
   const addOrUpdate = (): void => {
     if (editing) {
-      console.log('vaediteb');
       editTitle(editTodo[0]._id, inputValue, refetchTodos);
       dispatch(setEditing(false));
       dispatch(setInput(''));

@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
 import axios from 'axios';
+import {setData} from '../feature/todoData';
+import {useDispatch} from 'react-redux';
 
 const API_BASE_URL = 'http://192.168.100.10:3002'; // Replace with your actual API base URL
 
@@ -10,16 +12,15 @@ export interface TodoInterface {
 }
 
 const useTodos = () => {
-  const [data, setData] = useState<TodoInterface[]>([]);
   const [error, setError] = useState<string | null>(null);
-
+  const dispatch = useDispatch();
   const fetchTodos = async (): Promise<void> => {
     try {
       const response = await axios.get<TodoInterface[]>(
         `${API_BASE_URL}/todos`,
       );
       const data2 = response.data;
-      setData(data2);
+      dispatch(setData(data2));
     } catch (error) {
       console.log(error);
       setError('Error fetching todos');
@@ -31,7 +32,7 @@ const useTodos = () => {
     fetchTodos();
   }, []);
 
-  return {data, error, refetchTodos: fetchTodos, setData};
+  return {error, refetchTodos: fetchTodos};
 };
 
 export default useTodos;
