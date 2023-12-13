@@ -5,12 +5,29 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import useTodos, {addTask} from './useFetch';
+import useTodos, {addTask, editTitle} from './useFetch';
 import {useState} from 'react';
+import {useSelector} from 'react-redux';
+import {RootState} from '../feature/store';
+import {setEditing} from '../feature/editingText';
 
 const Create = (): JSX.Element => {
+  const editing = useSelector((store: RootState) => store.editingText.editing);
+  const editTodo = useSelector(
+    (store: RootState) => store.replacebleInput.edit,
+  );
+  const inputValue = useSelector((store: RootState) => store.todoName.input);
   const [input, setInput] = useState<string>('');
   const {refetchTodos} = useTodos();
+
+  const addOrUpdate = (): void => {
+    if (editing) {
+      editTitle(editTodo[0]._id, inputValue, refetchTodos);
+      setEditing(false);
+    } else {
+      addTask(inputValue, refetchTodos);
+    }
+  };
 
   return (
     <View style={style.createCont}>
@@ -20,7 +37,7 @@ const Create = (): JSX.Element => {
         <TextInput style={style.input} onChangeText={text => setInput(text)} />
         <TouchableOpacity
           onPress={() => {
-            addTask(input, refetchTodos);
+            addOrUpdate();
           }}
           style={style.button}>
           <Text style={style.buttonText}>Add Task</Text>
