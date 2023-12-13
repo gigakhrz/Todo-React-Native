@@ -1,9 +1,24 @@
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import useTodos, {updateTodo, deleteTodo} from './useFetch';
+import {setEdit} from '../feature/replacebleInput';
+import {useDispatch} from 'react-redux';
+import {setInput} from '../feature/todoName';
+import {setEditing} from '../feature/editingText';
 
 const Todos = (): JSX.Element => {
   const {data, refetchTodos} = useTodos();
+
+  const dispatch = useDispatch();
+
+  const handleEdit = (id: string): void => {
+    const editText = data.filter(item => item._id === id);
+    dispatch(setEdit(editText));
+    dispatch(setInput(editText[0].title));
+    dispatch(setEditing(true));
+
+    const currentData = data.filter(item => item._id !== id);
+  };
 
   return (
     <View style={style.todosWrapper}>
@@ -24,7 +39,7 @@ const Todos = (): JSX.Element => {
             </View>
 
             <View style={style.changeCont}>
-              <TouchableOpacity style={style.editWrapper}>
+              <TouchableOpacity onPress={() => {}} style={style.editWrapper}>
                 <Text style={style.edit}> edit</Text>
               </TouchableOpacity>
 

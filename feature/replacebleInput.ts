@@ -1,13 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-interface ReplaceProps {
-  _id: string;
-  title: string;
-  complated: boolean;
-}
+import {TodoInterface} from '../components/useFetch';
 
 export interface EditProps {
-  edit: ReplaceProps[];
+  edit: TodoInterface[];
 }
 
 const initialState: EditProps = {
@@ -18,7 +13,7 @@ const replacebleInput = createSlice({
   name: 'replacebleInput',
   initialState,
   reducers: {
-    setEdit: (state, action: PayloadAction<ReplaceProps[]>) => {
+    setEdit: (state, action: PayloadAction<TodoInterface[]>) => {
       state.edit = action.payload;
     },
   },
