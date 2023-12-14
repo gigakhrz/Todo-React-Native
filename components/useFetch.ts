@@ -81,7 +81,7 @@ export const deleteTodo = async (_id: string, fetchTodos: () => void) => {
   }
 };
 
-// edit function
+// to edit the todo
 
 export const editTitle = async (
   _id: string,
