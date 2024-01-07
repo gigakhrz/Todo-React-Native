@@ -3,7 +3,7 @@ import axios from 'axios';
 import {setData} from '../feature/todoData';
 import {useDispatch} from 'react-redux';
 
-const API_BASE_URL = 'http://192.168.100.10:3002'; // Replace with your actual API base URL
+const API_BASE_URL = 'http://192.168.100.10:3002';
 
 export interface TodoInterface {
   _id: string;
